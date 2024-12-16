@@ -2,6 +2,9 @@
   "name": "curso.dev-tabnews",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "20.18.1"
+  },
   "scripts": {
     "dev": "next dev"
   },
