@@ -6,7 +6,10 @@
     "node": "20.18.1"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run services:up && next dev",
+    "services:up": "docker compose -f infra/compose.yaml up -d",
+    "services:stop": "docker compose -f infra/compose.yaml stop",
+    "services:down": "docker compose -f infra/compose.yaml down",
     "build": "next build",
     "start": "next start",
     "lint:check": "prettier --check .",
