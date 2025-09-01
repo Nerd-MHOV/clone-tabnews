@@ -14,5 +14,6 @@ jobs:
           node-version: lts/iron
 
       # - run: npm i --package-lock-only
+      - run: npm i
       - run: npm ci
       - run: npm test
