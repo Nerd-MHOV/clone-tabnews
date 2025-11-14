@@ -10,16 +10,9 @@ beforeAll(async () => {
 describe("GET /api/v1/users/[username]", () => {
   describe("Anonymous user", () => {
     test("with exact case match", async () => {
-      const response1 = await fetch("http://localhost:3000/api/v1/users/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: "matchcase",
-          email: "matchcase@nerd.com",
-          password: "Senha123",
-        }),
+      const aUser = await orchestrator.createUser({
+        username: "matchcase",
       });
-      expect(response1.status).toBe(201);
 
       const response2 = await fetch(
         "http://localhost:3000/api/v1/users/matchcase",
@@ -30,7 +23,7 @@ describe("GET /api/v1/users/[username]", () => {
       expect(responseBody2).toEqual({
         id: responseBody2.id,
         username: "matchcase",
-        email: "matchcase@nerd.com",
+        email: aUser.email,
         password: responseBody2.password,
         created_at: responseBody2.created_at,
         updated_at: responseBody2.updated_at,
@@ -42,16 +35,9 @@ describe("GET /api/v1/users/[username]", () => {
     });
 
     test("with case missmatch", async () => {
-      const response1 = await fetch("http://localhost:3000/api/v1/users/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: "caseMissmatch",
-          email: "caseMissmatch@nerd.com",
-          password: "Senha123",
-        }),
+      const aUser = await orchestrator.createUser({
+        username: "caseMissmatch",
       });
-      expect(response1.status).toBe(201);
 
       const response2 = await fetch(
         "http://localhost:3000/api/v1/users/casemissmatch",
@@ -62,7 +48,7 @@ describe("GET /api/v1/users/[username]", () => {
       expect(responseBody2).toEqual({
         id: responseBody2.id,
         username: "caseMissmatch",
-        email: "caseMissmatch@nerd.com",
+        email: aUser.email,
         password: responseBody2.password,
         created_at: responseBody2.created_at,
         updated_at: responseBody2.updated_at,
