@@ -1,6 +1,6 @@
 import { version as uuidVersion } from "uuid";
 import orchestrator from "tests/orchestrator";
-import user from 'models/user';
+import user from "models/user";
 import password from "models/password";
 
 beforeAll(async () => {
@@ -40,8 +40,14 @@ describe("POST /api/v1/users", () => {
       expect(Date.parse(responseBody.created_at)).not.toBeNaN();
 
       const userInDatabase = await user.findOneByUsername("nerd");
-      const correctPasswordMatch = await password.compare('Senha123', userInDatabase.password);
-      const incorrectPasswordMatch = await password.compare('SenhaErrada', userInDatabase.password);
+      const correctPasswordMatch = await password.compare(
+        "Senha123",
+        userInDatabase.password,
+      );
+      const incorrectPasswordMatch = await password.compare(
+        "SenhaErrada",
+        userInDatabase.password,
+      );
       expect(correctPasswordMatch).toBe(true);
       expect(incorrectPasswordMatch).toBe(false);
     });

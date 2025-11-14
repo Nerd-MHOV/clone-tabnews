@@ -22,5 +22,4 @@ async function patchHandler(request, response) {
   const updatedUser = await user.update(username, userInputvalues);
 
   return response.status(200).json(updatedUser);
-  
 }

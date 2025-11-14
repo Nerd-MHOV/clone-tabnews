@@ -253,10 +253,15 @@ describe("PATCH /api/v1/users/[username]", () => {
 
       expect(responseBody.updated_at > responseBody.created_at).toBe(true);
 
-
       const userInDatabase = await user.findOneByUsername("newpassword");
-      const correctPasswordMatch = await password.compare('newpasswordupdated', userInDatabase.password);
-      const incorrectPasswordMatch = await password.compare('Senha123', userInDatabase.password);
+      const correctPasswordMatch = await password.compare(
+        "newpasswordupdated",
+        userInDatabase.password,
+      );
+      const incorrectPasswordMatch = await password.compare(
+        "Senha123",
+        userInDatabase.password,
+      );
       expect(correctPasswordMatch).toBe(true);
       expect(incorrectPasswordMatch).toBe(false);
     });
