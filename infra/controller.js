@@ -5,6 +5,8 @@ import {
   UnauthorizedError,
   ValidationError,
 } from "infra/errors";
+import * as cookie from "cookie";
+import session from "models/session";
 
 function onErrorHandler(error, request, response) {
   if (
@@ -29,11 +31,23 @@ function onNoMatchHandler(request, response) {
   response.status(publicErrorObject.statusCode).json(publicErrorObject);
 }
 
+async function setSessionCookie(sessionToken, response) {
+  const setCookie = cookie.serialize("session_id", sessionToken, {
+    path: "/",
+    maxAge: session.EXPIRATION_IN_MILLISECONDS / 1000,
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+  });
+
+  response.setHeader("Set-Cookie", setCookie);
+}
+
 const constroller = {
   errorHandlers: {
     onNoMatch: onNoMatchHandler,
     onError: onErrorHandler,
   },
+  setSessionCookie,
 };
 
 export default constroller;
