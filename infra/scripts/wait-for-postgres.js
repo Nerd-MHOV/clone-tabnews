@@ -2,7 +2,7 @@ const { exec } = require("node:child_process");
 
 function checkPostgres() {
   exec(
-    "docker exec postgres-dev-curso.dev pg_isready --host localhost",
+    "docker exec postgresdb-dev-curso.dev pg_isready --host localhost",
     handleReturn,
   );
 

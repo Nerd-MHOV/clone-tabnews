@@ -31,7 +31,7 @@ describe("GET /api/v1/users/[username]", () => {
 
       expect(uuidVersion(responseBody2.id)).toBe(4);
       expect(Date.parse(responseBody2.created_at)).not.toBeNaN();
-      expect(Date.parse(responseBody2.created_at)).not.toBeNaN();
+      expect(Date.parse(responseBody2.updated_at)).not.toBeNaN();
     });
 
     test("with case missmatch", async () => {
@@ -56,7 +56,7 @@ describe("GET /api/v1/users/[username]", () => {
 
       expect(uuidVersion(responseBody2.id)).toBe(4);
       expect(Date.parse(responseBody2.created_at)).not.toBeNaN();
-      expect(Date.parse(responseBody2.created_at)).not.toBeNaN();
+      expect(Date.parse(responseBody2.updated_at)).not.toBeNaN();
     });
 
     test("with nonexistent username", async () => {
