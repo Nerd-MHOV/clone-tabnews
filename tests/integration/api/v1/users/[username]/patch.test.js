@@ -105,6 +105,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         username: "uniqueuserupdated",
         email: aUser.email,
         password: responseBody.password,
+        features: [],
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
@@ -141,6 +142,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         username: aUser.username,
         email: "uniqueemailupdated@nerd.com",
         password: responseBody.password,
+        features: [],
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
@@ -175,6 +177,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         username: aUser.username,
         email: aUser.email,
         password: responseBody.password,
+        features: [],
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });

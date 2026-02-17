@@ -25,6 +25,7 @@ describe("GET /api/v1/users/[username]", () => {
         username: "matchcase",
         email: aUser.email,
         password: responseBody2.password,
+        features: [],
         created_at: responseBody2.created_at,
         updated_at: responseBody2.updated_at,
       });
@@ -50,6 +51,7 @@ describe("GET /api/v1/users/[username]", () => {
         username: "caseMissmatch",
         email: aUser.email,
         password: responseBody2.password,
+        features: [],
         created_at: responseBody2.created_at,
         updated_at: responseBody2.updated_at,
       });
