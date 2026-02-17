@@ -7,3 +7,10 @@ services:
       - ../.env.development
     ports:
       - "5432:5432"
+
+  mailcatcher:
+    container_name: "mailcatcher-dev-curso.dev"
+    image: "sj26/mailcatcher"
+    ports:
+      - "1080:1080"
+      - "1025:1025"
