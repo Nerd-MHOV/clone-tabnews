@@ -2,8 +2,40 @@ import database from "infra/database";
 import email from "infra/email";
 import { NotFoundError } from "infra/errors";
 import webserver from "infra/webserver";
+import user from "models/user";
 
 const EXPIRATION_IN_MILLISECONDS = 60 * 15 * 1000; // 15 minutes
+
+async function activateUserByUserId(userId) {
+  const activatedUser = await user.setFeatures(userId, ["create:session"]);
+  return activatedUser;
+}
+
+async function markTokenAsUsed(token) {
+  const usedToken = await runUpdateQuery(token);
+  if (!usedToken) return null;
+
+  return usedToken;
+
+  async function runUpdateQuery(token) {
+    const result = await database.query({
+      text: `
+        UPDATE
+          user_activation_tokens
+        SET
+          used_at = NOW(),
+          updated_at = NOW()
+        WHERE
+          id = $1 
+        RETURNING
+          *
+      ;`,
+      values: [token],
+    });
+
+    return result.rows[0];
+  }
+}
 
 async function findOneValidByToken(token) {
   const activationToken = await runSelectQuery(token);
@@ -85,6 +117,8 @@ const activation = {
   create,
   EXPIRATION_IN_MILLISECONDS,
   findOneValidByToken,
+  markTokenAsUsed,
+  activateUserByUserId,
 };
 
 export default activation;

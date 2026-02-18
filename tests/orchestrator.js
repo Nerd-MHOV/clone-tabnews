@@ -88,11 +88,10 @@ async function getLastEmail() {
   return lastEmail;
 }
 
-function extrectUUID(text) {
+function extractUUID(text) {
   const regexToMatchUUID =
     /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
   const match = text.match(regexToMatchUUID);
-  console.log(match[0]);
   return match ? match[0] : null;
 }
 
@@ -104,6 +103,6 @@ const orchestrator = {
   createSession,
   deleteAllEmails,
   getLastEmail,
-  extrectUUID,
+  extrectUUID: extractUUID,
 };
 export default orchestrator;
