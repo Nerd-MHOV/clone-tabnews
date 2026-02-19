@@ -67,6 +67,8 @@ describe("Use case: Registration Flow (all sucessful)", () => {
   });
 
   test("Activate account", async () => {
+    console.log(createUserResponseBody);
+
     const activationResponse = await fetch(
       `http://localhost:3000/api/v1/activations/${activationTokenId}`,
       {
