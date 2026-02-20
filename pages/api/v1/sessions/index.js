@@ -1,8 +1,7 @@
 import { createRouter } from "next-connect";
-import constroller from "infra/controller";
+import controller from "infra/controller";
 import authentication from "models/authentication";
 import session from "models/session";
-import controller from "infra/controller";
 import authorization from "models/authorization";
 import { ForbiddenError } from "infra/errors";
 
@@ -12,7 +11,7 @@ router.use(controller.injectAnnonymousOrUser);
 router.post(controller.canRequest("create:session"), postHandler);
 router.delete(deleteHandler);
 
-export default router.handler(constroller.errorHandlers);
+export default router.handler(controller.errorHandlers);
 
 async function postHandler(request, response) {
   const userInputValues = request.body;

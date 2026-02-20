@@ -107,7 +107,7 @@ function canRequest(feature) {
   };
 }
 
-const constroller = {
+const controller = {
   errorHandlers: {
     onNoMatch: onNoMatchHandler,
     onError: onErrorHandler,
@@ -118,4 +118,4 @@ const constroller = {
   canRequest,
 };
 
-export default constroller;
+export default controller;
