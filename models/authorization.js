@@ -1,4 +1,33 @@
+const { InternalServerError } = require("infra/errors");
+
+const availableFeatures = [
+  //user
+  "create:user",
+  "read:user",
+  "read:user:self",
+  "update:user",
+  "update:user:others",
+
+  //session
+  "create:session",
+  "read:session",
+
+  // activation token
+  "read:activation_token",
+
+  //migration
+  "create:migration",
+  "read:migration",
+
+  //status
+  "read:status",
+  "read:status:all",
+];
+
 function can(user, feature, resource) {
+  validateUser(user);
+  validateFeature(feature);
+
   let authorized = false;
 
   if (user.features.includes(feature)) {
@@ -23,6 +52,10 @@ function can(user, feature, resource) {
 }
 
 function filterOutput(user, feature, resource) {
+  validateUser(user);
+  validateFeature(feature);
+  validateResource(resource);
+
   if (feature === "read:user") {
     return {
       id: resource.id,
@@ -89,6 +122,30 @@ function filterOutput(user, feature, resource) {
         },
       },
     };
+  }
+}
+
+function validateUser(user) {
+  if (!user || !user.features) {
+    throw new InternalServerError({
+      cause: "É necessário fornecer o `user` no model authorization",
+    });
+  }
+}
+
+function validateFeature(feature) {
+  if (!feature || !availableFeatures.includes(feature)) {
+    throw new InternalServerError({
+      cause: `O recurso ${feature} não é um recurso conhecido`,
+    });
+  }
+}
+
+function validateResource(resource) {
+  if (!resource) {
+    throw new InternalServerError({
+      cause: "É necessário fornecer o `resource` no model authorization",
+    });
   }
 }
 
