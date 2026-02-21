@@ -37,7 +37,7 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
         now: new Date(Date.now() - activation.EXPIRATION_IN_MILLISECONDS),
       });
 
-      const createdUser = await orchestrator.createUser({});
+      const createdUser = await orchestrator.createUser();
       const expiredActivationToken = await activation.create(createdUser.id);
 
       jest.useRealTimers();
@@ -172,7 +172,7 @@ describe("PATCH /api/v1/activations/[token_id]", () => {
     test("With valid token but user already activated", async () => {
       const user1 = await orchestrator.createUser({});
       await orchestrator.activateUser(user1);
-      const user1SessionObject = await orchestrator.createSession(user1.id);
+      const user1SessionObject = await orchestrator.createSession(user1);
 
       const user2 = await orchestrator.createUser({});
       const user2ActivationToken = await activation.create(user2.id);
